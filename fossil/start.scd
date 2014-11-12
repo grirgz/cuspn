@@ -1,4 +1,8 @@
 
+// cuspn test project
+
+
+// init project
 (
 
 (~cuspn_project_path +/+ "mainlib.scd").load;
@@ -8,6 +12,8 @@
 
 );
 
+
+// start/stop
 
 ~play_node.('1.1');
 
