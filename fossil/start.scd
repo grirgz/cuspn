@@ -10,7 +10,6 @@
 
 
 ~play_node.('1.1');
-~stop_node.('1.1');
 
 Pdef(\fossil1).play;
 Pdef(\fossil1).stop;
