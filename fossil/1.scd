@@ -12,3 +12,9 @@ SynthDef(\fossil1, { arg out=0, amp=0.1, gate=1, pan=0, freq=200;
 	sig = Pan2.ar(sig, pan, amp).flop;
 	Out.ar(out, sig);
 }).add;
+
+
+SynthDef(\kick,{|gate =1|
+	var env = EnvGen.ar(Env.perc(0.001,1),gate,doneAction:2);
+	var sig = SinOsc.ar(60,0,1,0);
+}).add;
