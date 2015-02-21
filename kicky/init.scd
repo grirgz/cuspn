@@ -1,7 +1,7 @@
 Veco.load_lib("main.scd");
 
 Veco.main.board_size = Point(32,64);
-~set_default_quant.(4);
+~set_default_quant.(0);
 ~set_project_tempo.(1);
 ~load_standard_quickpad.();
 Veco.exec_file("start.scd");

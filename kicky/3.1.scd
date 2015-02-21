@@ -56,6 +56,7 @@ SynthDef(\kick3, { |out=0, amp=0.1, pan=0, release=0.26, fratio=1.5, freqpan=0.0
 
 (
 Pdef(\kick3, Pbind(
+	\instrument, \kick3,
 	\env0, [ Env.new([0.0, 1, 0.1, 0], [0.005, 0.16, 0.1], [-4, -2, 4]) ],
 	\env1, Pfunc({
 		[ Env.new([110, 46, 28+3.rand], [0.015, 0.19], [-4, -5]) ]
@@ -82,5 +83,5 @@ Pdef(\kick3, Pbind(
 			1,0,0,0, 0,0,0,0, 
 		],inf),
 	],inf).coin.not,
-));
+)).play;
 )

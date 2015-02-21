@@ -153,3 +153,4 @@ Pdef(\kick1, Pbind(
 )).play;
 );
 
+Pdef(\kick1).stop
