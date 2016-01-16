@@ -1,4 +1,5 @@
 
+~t = 1
 (
 Ndef(\honk, { arg freq=200, pan=0, amp=0.1;
 	var sig;
@@ -24,6 +25,8 @@ Ndef(\honk, { arg freq=200, pan=0, amp=0.1;
 	sig = Splay.ar(sig, 0.1, amp, SinOsc.kr(8).range(-1,1));
 }).play;
 );
+
+{ SinOsc.ar(200) ! 2 * 0.1}.play;
 
 (
 Ndef(\honk, { arg freq=200, pan=0, amp=0.1;
