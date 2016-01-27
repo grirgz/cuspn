@@ -12,13 +12,13 @@ SynthDef(\bass, { arg out=0, amp=0.1, gate=1, pan=0, freq=200;
 	sig2 = LFPulse.ar(freq);
 	sig3 = SinOsc.ar(freq);
 	sig = SelectX.ar( EnvGen.kr(Env([0,0.5,1],[0.01,3.8]), 1), [sig1, sig2, sig3]);
+	sig4 = SelectX.ar( EnvGen.kr(Env([1,0.5,1],[1.41,3.8]), 1), [sig1, sig2, sig3]);
 	sig = RLPF.ar(sig, \lpf.kr(200), \rq.kr(0.5));
 	//sig = sig.wrap2(0.3 * SinOsc.kr(1/10 * ~t).range(4,1)) * 5;
 	//sig = sig.fold2(0.3 * SinOsc.kr(1/13 * ~t).range(4,1)) * 5;
-	sig = (sig * 1 * env1**2).tanh;
+	//sig = (sig * 1 * env1**2).tanh;
+	sig = sig + ( sig * BPF.ar(LFSaw.ar(freq), 400) );
 	sig = LPF.ar(sig, 30 * env1) + BPF.ar(sig, [70,80,200,500,1140,799],0.4,2).mean ;
-	sig = Ringz.ar(sig, 500) / 050 + sig  ;
-	sig = sig / 1;
 	sig = HPF.ar(sig, 80);
 	sig = sig * EnvGen.ar(Env.adsr(0.001,0.1,0.8,0.8,1,-2),gate,doneAction:2);
 	sig = Pan2.ar(sig, pan, amp).flop;
@@ -190,7 +190,7 @@ Pdef(\plop, Pbind(
 	\sustain, 0.01,
 	\dur, 1/2,
 	\amp, 0.1
-)).play;
+)).stop;
 );
 
 (
@@ -224,5 +224,111 @@ Pdef(\kick2, Pbind(
 	\degree, Pseq([0],inf),
 	\dur, 1/4,
 	\amp, 0.8
+)).play;
+);
+
+(
+SynthDef(\snare, { arg out=0, amp=0.1, gate=1, pan=0, freq=200;
+	var sig;
+	var env1, env2, env3, env4, env5, env6, env7, env8;
+	var sig1, sig2, sig3, sig4, sig5, sig6, sig7, sig8;
+	sig = SinOsc.ar(freq);
+	sig = WhiteNoise.ar;
+	env1 = EnvGen.kr(Env([4000,4400,1700],[0.04,0.7],-4), 1) * \env1scale.kr(1);
+	sig1 = RLPF.ar(sig, env1 , \rq.kr(0.5) * [1,0.5]) * [1,0.7];
+	env2 = EnvGen.kr(Env([1000,4400,1700],[0.01,0.7],-4), 1) * \env2scale.kr(1);
+	sig2 = RLPF.ar(sig, env2 , \rq.kr(0.5) * [1,0.5]) * [1,0.7];
+	sig = [sig1, sig2];
+	//sig = [FreqShift.ar(sig, -220) , sig];
+	sig = DelayL.ar(sig, 0.1, [ 1/8000, 1/7000 ]) + sig;
+	sig = DelayL.ar(sig, 0.1, [ 1/8000, 1/7000 ] * 4.11) + sig;
+	sig = 4.collect { arg x;
+		var isig = DelayL.ar(sig, 0.1,0.01 * ( x/40 )) + sig;
+		isig = DelayL.ar(isig, 0.1, [ 1/8000, 1/7000 ] * 0.98 * ( x/10 )) + sig;
+	};
+	sig = sig.mean;
+	sig.debug("sig");
+	sig = sig * EnvGen.ar(\env.kr(Env.perc(0.01,0.2,1)),gate,doneAction:2);
+	sig = Pan2.ar(sig, pan, amp).mean;
+	Out.ar(out, sig);
+}).add;
+);
+
+(
+Pdef(\snare, 
+
+	Pbind(
+		\instrument, \snare,
+		\degree, Pseq([0],inf),
+		\dur, 1/4,
+		\isRest, Pseq([
+			0,0,0,0, 1,0,0,0,
+		],inf).coin.not,
+		\amp, 0.2
+	)
+	<>
+	Pbind(
+		\env, Pseq([
+			[ Env.perc(0.01,0.2) ],
+			[
+				[ Env.perc(0.01,0.4) ],
+				[ Env.perc(0.02,0.4) ]
+			]
+		],inf),
+		\env1scale, Pseq([1,1.0],inf),
+		\env2scale, Pseq([1,[0.4,0.8]],inf),
+		\lag, Pseq([0, Ptuple([0,Pwhite(0.01,0.071,1)])],inf),
+	).stutter(8)
+
+).play;
+);
+
+
+(
+SynthDef(\snare2, { arg out=0, amp=0.1, gate=1, pan=0, freq=200;
+	var sig;
+	var sig1, sig2, sig3, sig4, sig5, sig6, sig7, sig8;
+	var env1, env2, env3, env4, env5, env6, env7, env8;
+	var fmf;
+	sig1 = WhiteNoise.ar;
+	env1 = EnvGen.kr(Env([freq,freq*2,4541],[0.01,0.08]), 1);
+	sig1 = BPF.ar(sig1, env1);
+	sig2 = WhiteNoise.ar;
+	env2 = EnvGen.kr(Env([freq,freq*2,8541],[0.04,0.08]), 1);
+	sig2 = BPF.ar(sig2, env2);
+
+	fmf = freq * [1,1/4];
+	env3 = EnvGen.kr(Env([1,2,1],[0.1,0.8]), 1);
+	sig3 = SinOsc.ar(fmf * ( 1 + ( SinOsc.ar(fmf * 8/10) * env3 )));
+	sig = [sig1, sig2];
+	sig = sig * EnvGen.kr(Env.perc(0.0001,0.02), gate);
+	sig = sig + sig3;
+	//sig = [sig1, sig2] * 2;
+	sig = DelayL.ar(sig, 0.1, [ 1/8000, 1/7000 ] * 1744.11) + sig;
+	sig = sig * EnvGen.kr(Env.perc(0.0001,0.2), gate, doneAction:2);
+	sig = Pan2.ar(sig, pan, amp).mean;
+	Out.ar(out, sig);
+}).add;
+);
+
+(
+Pdef(\snare2, Pbind(
+	\instrument, \snare2,
+	\freq, Pseq([100,200,170,120],inf),
+	\isRest, Pseq([
+		1,0,0,1,
+		1,1,0,0,
+	],inf).coin.not,
+	\dur, 1/4,
+	\amp, 0.8
+)).play;
+);
+
+(
+Pdef(\plop, Pbind(
+	\instrument, \default,
+	\degree, Pseq([0],inf),
+	\dur, 1,
+	\amp, 0.1
 )).play;
 );
