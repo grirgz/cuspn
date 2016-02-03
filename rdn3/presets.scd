@@ -463,3 +463,53 @@ Pdef(\yobass_var2,Pbind(
 ));
 
 )
+
+
+/////////////////////// part2
+
+Pdef(\violin, Pbind(
+	\instrument, \violin,
+	\degree, [0,2,4],
+	//\degree, 0,
+	\ctranspose, Pseq([
+		//-4,-5,-2,-4,
+		//0,3,1,5,
+		0,3,1,-3,
+	],inf),
+	\scale, Scale.minor,
+	\octave, Prand([6],inf),
+	\legato, 1/4,
+	\lag, Ptuple([Pwhite(0,0.1,inf),0,Pwhite(0,0.1,inf)]),
+	\dur, 2,
+	\timeScale, Pkey(\dur),
+	\amp, 0.1
+));
+
+(
+Pdef(\hat3, Pbind(
+	\instrument, \hat,
+	\degree, Pseq([0],inf),
+	\dur, 1/8,
+	\sustain, 0.05,
+	\isRest, Pseq([
+		0,0,1,0, 1,0,0,0,
+		0,0,1,0, 0,1,0,0,
+		0,0,1,0, 1,0,1,0,
+		1,1,1,0, 1,1,1,1,
+	],inf).coin.not,
+	\rel, Pseq([ 
+		0.1,0.4, 0.1, 0.1,
+		0.1, 0.1, 0.1, 0.1,
+	],inf).stutter(2),
+	\amp, 0.05
+)).play;
+)
+
+(
+Pdef(\kicku, Pbind(
+	\instrument, \default,
+	\degree, Pseq([0],inf),
+	\dur, 1,
+	\amp, 0.1
+)).play;
+);

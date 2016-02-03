@@ -52,6 +52,7 @@ Pdef(\kick2, Pbind(
 
 (
 );
+Pdef(\hat).play
 
 Pdef(\hat).stop
 Pdef(\hat2).stop

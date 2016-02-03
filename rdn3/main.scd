@@ -111,6 +111,21 @@ Pdef(\mainx, Pseq([
 )
 
 (
+	[
+		Pdef(\violin),
+
+		Pdef(\yobass),
+		Pdef(\hat3),
+		//Pdef(\kick2),
+		//Pdef(\snare_hat),
+	].collect(_.play)
+)
+
+Pdef(\kick).stop
+Pdef(\kick2).stop
+Pdef(\snare_hat).stop
+
+(
 )
 Pdef(\yobass).stop;
 
