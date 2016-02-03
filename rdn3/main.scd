@@ -1,6 +1,9 @@
 
 ///////////////////////////////////////////// main
 
+Pdef(\kick2).play
+Pdef(\kick2_var2).play
+
 (
 	Pdef(\part1,
 		Ppar([
@@ -28,6 +31,8 @@
 		])
 	);
 )
+
+Pdef(\part2).play
 
 (
 Pdef(\mainx,
@@ -106,61 +111,9 @@ Pdef(\mainx, Pseq([
 )
 
 (
-Pdef(\yobass_var2,Pbind(
-	\instrument,
-	\sfsq,
-	\octave,3,
-	\ctranspose,Pseq([3],inf),
-	\note,Pseq([0,0,1,1],inf).stutter(2),
-	\dur,1,
-	\legato, 0.3,
-	\rel, 1.5,
-	\at, 0.1,
-	\isRest, Pseq([
-		1,0,0,0, 1,0,1,1,
-		1,0,0,0, 0,0,1,1,
-
-		1,0,0,0, 0,0,1,0,
-		1,0,0,0, 0,0,1,1,
-	],inf).coin.not,
-	\scale,Scale.minor,
-	//\isRest,Pseq([1],inf).coin.not
-));
 )
 Pdef(\yobass).stop;
 
 (
-Pdef(\kick2_var2, Pbind(
-	\instrument, \dr_kick,
-	\env1, Pseq([
-		[ Env.new([80, 32, 29], [0.055, 0.29], [-4, -5]) ],
-	],inf),
-	\timeScale, 1,
-	\isRest, Pseq([
-		0,0,0,0, 0,0,0,0,
-		0,0,1,0, 0,1,0,0,
-		0,0,0,0, 0,0,0,0,
-		0,0,1,0, 0,0,1,0,
-
-		0,0,1,0, 0,0,0,0,
-		0,0,1,0, 0,1,0,0,
-		0,0,0,0, 0,0,0,0,
-		0,0,1,0, 0,0,1,0,
-
-		0,0,0,0, 0,0,0,0,
-		0,0,1,0, 0,1,0,0,
-		0,0,0,0, 0,0,0,0,
-		0,0,1,0, 0,0,1,0,
-
-		0,0,0,1, 0,0,1,0,
-		0,0,1,0, 0,1,0,0,
-		0,0,0,0, 0,0,0,0,
-		0,0,1,0, 0,0,1,0,
-	],inf).coin.not,
-	\fratio, 1,
-	\degree, Pseq([0],inf),
-	\dur, 1/4,
-	\amp, 0.8
-)).play;
 )
 Pdef(\kick2).stop
