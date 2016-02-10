@@ -1,10 +1,11 @@
 
 ///////////////////////////////////////////// main
 
-Pdef(\kick2).play
-Pdef(\kick2_var2).play
-
 (
+
+	////////////////////////////////// PARTS DEFINE /////////////////
+
+
 	// intro
 	Pdef(\part1,
 		Ppar([
@@ -61,10 +62,10 @@ Pdef(\kick2_var2).play
 )
 
 
-Pdef(\part2).play
 
-Ndef(\noise).set(\freq,10000);
 (
+	////////////////////// MAIN LAUNCH !!!!!!!!!!! ///////////////////////////////
+
 Tdef(\effect,{loop{
 Ndef(\noise,{
 	var in = In.ar(0,2);
@@ -99,9 +100,7 @@ Ndef(\noise,{
 }).play;
 	4.wait;
 }}).play;
-)
-Pdef(\mainx).clear
-(
+
 Pdef(\mainx,
 	Pseq([
 		Pfindur(16/2,
@@ -142,13 +141,22 @@ Pdef(\mainx,
 ).play
 )
 
+
+////////////////////////////////////////////////////////////////////////: draft
+
+Pdef(\part2).play
+
+Ndef(\noise).set(\freq,10000);
+
 (
 Pdef(\mainx, 
 	Pdef(\part5)
 ).play
 )
 
-////////////////////////////////////////////////////////////////////////: draft
+Pdef(\kick2).play
+Pdef(\kick2_var2).play
+
 
 (
 Pdef(\mainx2, Pseq([
