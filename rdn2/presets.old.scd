@@ -25,6 +25,8 @@ SynthDef(\hsnare, { arg out=0, amp=0.1, gate=1, pan=0, freq=200;
 	sig = sig * EnvGen.ar(Env.perc(0.01,\rel.kr(0.1)),gate,doneAction:2);
 	sig = Pan2.ar(sig, pan, amp).mean;
 	Out.ar(out, sig);
+	Out.ar(10, sig);
+
 }).add;
 
 SynthDef(\snare, { arg out=0, amp=0.1, gate=1, pan=0, freq=200;
@@ -44,6 +46,7 @@ SynthDef(\snare, { arg out=0, amp=0.1, gate=1, pan=0, freq=200;
 	sig = sig * EnvGen.ar(Env.perc(0.01,\rel.kr(0.1)),gate,doneAction:2);
 	sig = Pan2.ar(sig, pan, amp).mean;
 	Out.ar(out, sig);
+	Out.ar(10, sig);
 }).add;
 
 
@@ -74,7 +77,7 @@ SynthDef(\bob, { arg out=0, amp=0.1, gate=1, pan=0, freq=200;
 );
 
 (
-	
+
 Pdef(\hat, Pbind(
 	\instrument, \goro,
 	\degree, Pseq([0],inf),

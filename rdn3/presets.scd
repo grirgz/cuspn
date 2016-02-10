@@ -13,26 +13,26 @@ SynthDef(\dr_kick1, { |out=0, amp=0.1, pan=0, fratio=1.5, freqpan=0.01, spread=0
 	freqpan = [1,0,-1] * freqpan;
 	env0 = \env0.kr(Env.new([0, 1, 0.5, 0], [0.105, 0.16, 00.2], [-4, -2, -4]));
 	env1 = \env1.kr(Env.new([110, 32, 29], [0.105, 0.29], [-4, -5]));
-	
+
 	env0 =  EnvGen.ar(env0, doneAction:2, timeScale:timeScale);
 	env1 = EnvGen.ar(env1, timeScale:timeScale);
 	env1m = env1.midicps;
-	
+
 	son = LFPulse.ar(env1m * freqpan, 0, 0.5, 1, -0.5);
 	son = son + WhiteNoise.ar(1);
 	son = LPF.ar(son, env1m*fratio, env0);
 	son = son + SinOsc.ar(env1m, 0.5, env0);
-	
+
 	//son = son * 1.2;
 	//son = son.clip2(1);
 
 	son = son * amp;
 	son = Splay.ar(son, spread, amp, pan);
-	
+
 	OffsetOut.ar(out, son);
 }, metadata:(specs:(
-	env0: XEnvSpec( ControlSpec(0,9,\lin)!4, ControlSpec(0,2,\lin)!4 ),
-	env1: XEnvSpec( ControlSpec(0,127,\lin)!3, ControlSpec(0,2,\lin)!3 ),
+	env0: EnvSpec( ControlSpec(0,9,\lin)!4, ControlSpec(0,2,\lin)!4 ),
+	env1: EnvSpec( ControlSpec(0,127,\lin)!3, ControlSpec(0,2,\lin)!3 ),
 	timeScale: ControlSpec(0.001,4,\lin, 0, 1),
 ))).store;
 SynthDef(\bass, { arg out=0, amp=0.1, gate=1, pan=0, freq=200;
@@ -139,7 +139,7 @@ SynthDef(\hat2, { arg out=0, amp=0.1, gate=1, pan=0, freq=200;
 SynthDef(\violin, { arg out=0, amp=0.1, gate=1, pan=0, freq=200, velocity=0.5, doneAction=2;
 	var sig;
 	var env1, env2, env3, env4, env5, env6, env7, env8;
-	
+
 	var xfreq = [1/4,1/2,1,2,4];
 	var lfo1, lfo2, lfo3, lfo4, lfo5, lfo6, lfo7, lfo8;
 	var ifreq;
@@ -175,6 +175,7 @@ SynthDef(\sfsq,{arg freq =30, amp=0.1;
 
 );
 
+FreqScope.new
 
 (
 
@@ -189,7 +190,7 @@ Pdef(\kick, Pbind(
 	\fratio, 1,
 	\degree, Pseq([0],inf),
 	\dur, 4,
-	\amp, 0.8
+	\amp, 0.5
 ));
 
 Pdef(\kick2, Pbind(
@@ -208,7 +209,7 @@ Pdef(\kick2, Pbind(
 	\fratio, 1,
 	\degree, Pseq([0],inf),
 	\dur, 1/4,
-	\amp, 0.8
+	\amp, 0.5
 ));
 
 Pdef(\kick2_var2, Pbind(
@@ -241,12 +242,12 @@ Pdef(\kick2_var2, Pbind(
 	\fratio, 1,
 	\degree, Pseq([0],inf),
 	\dur, 1/4,
-	\amp, 0.8
+	\amp, 0.5
 ));
 
 ////////////////////////////////// snare_hat
 
-Pdef(\snare_hat_noreg, 
+Pdef(\snare_hat_noreg,
 	Ppar([
 
 		Pbind(
@@ -254,7 +255,7 @@ Pdef(\snare_hat_noreg,
 			\degree, Pseq([0],inf),
 			\dur, 1/8,
 			\sustain, 0.05,
-			\rel, Pseq([ 
+			\rel, Pseq([
 				0.1,
 			],inf).stutter(2),
 			\amp, 0.05,
@@ -270,7 +271,7 @@ Pdef(\snare_hat_noreg,
 			\degree, Pseq([0],inf),
 			\dur, 1/8,
 			\sustain, 0.05,
-			\rel, Pseq([ 
+			\rel, Pseq([
 				0.1,
 			],inf).stutter(2),
 		)
@@ -308,7 +309,7 @@ Pdef(\snare_hat_noreg,
 
 );
 
-Pdef(\snare_hat, 
+Pdef(\snare_hat,
 	Ppar([
 
 		Pbind(
@@ -316,7 +317,7 @@ Pdef(\snare_hat,
 			\degree, Pseq([0],inf),
 			\dur, 1/8,
 			\sustain, 0.05,
-			\rel, Pseq([ 
+			\rel, Pseq([
 				0.1,
 			],inf).stutter(2),
 			\amp, 0.05,
@@ -332,7 +333,7 @@ Pdef(\snare_hat,
 			\degree, Pseq([0],inf),
 			\dur, 1/8,
 			\sustain, 0.05,
-			\rel, Pseq([ 
+			\rel, Pseq([
 				0.1,
 			],inf).stutter(2),
 		)
@@ -497,7 +498,7 @@ Pdef(\hat3, Pbind(
 		0,0,1,0, 1,0,1,0,
 		1,1,1,0, 1,1,1,1,
 	],inf).coin.not,
-	\rel, Pseq([ 
+	\rel, Pseq([
 		0.1,0.4, 0.1, 0.1,
 		0.1, 0.1, 0.1, 0.1,
 	],inf).stutter(2),
