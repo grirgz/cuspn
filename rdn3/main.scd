@@ -5,6 +5,7 @@ Pdef(\kick2).play
 Pdef(\kick2_var2).play
 
 (
+	// intro
 	Pdef(\part1,
 		Ppar([
 			Pdef(\yobass),
@@ -13,6 +14,7 @@ Pdef(\kick2_var2).play
 			Pdef(\snare_hat),
 		])
 	);
+	// refrain
 	Pdef(\part2,
 		Ppar([
 			Pdef(\violin),
@@ -23,6 +25,7 @@ Pdef(\kick2_var2).play
 			Pdef(\snare_hat),
 		])
 	);
+	// refrain sans beat
 	Pdef(\part3,
 		Ppar([
 			Pdef(\violin),
@@ -30,6 +33,31 @@ Pdef(\kick2_var2).play
 			Pdef(\yobass_var2),
 		])
 	);
+
+	// variation 1
+	Pdef(\part4,
+		Ppar([
+			Pdef(\violin4),
+
+			Pdef(\yobass_var2),
+			Pdef(\kick),
+			Pdef(\kick2_var3),
+			Pdef(\snare_hat),
+			Pdef(\hat3),
+		])
+	);
+
+	// variation 2
+	Pdef(\part5,
+			Ppar([
+				Pdef(\violin2),
+				Pdef(\yobass2),
+				Pdef(\kick),
+				Pdef(\kick2),
+				Pdef(\snare_hat),
+			])
+	);
+
 )
 
 
@@ -72,6 +100,7 @@ Ndef(\noise,{
 	4.wait;
 }}).play;
 )
+Pdef(\mainx).clear
 (
 Pdef(\mainx,
 	Pseq([
@@ -80,7 +109,7 @@ Pdef(\mainx,
 				Pdef(\yobass)
 			//])
 		),
-		Pfindur(16 * 1,
+		Pfindur(16 * 2,
 			Pdef(\part1)
 		),
 		Pfindur(16 * 2,
@@ -91,24 +120,17 @@ Pdef(\mainx,
 		),
 		Rest(1),
 		Pfindur(16 * 1,
-			Ppar([
-				Pdef(\violin2),
-				Pdef(\yobass2),
-				Pdef(\kick),
-				Pdef(\kick2),
-				Pdef(\snare_hat),
-			])
 		),
-		Pfindur(16 * 2,
-			Pdef(\part2)
-		),
-		Pfindur(16,
+		//Pfindur(16 * 2,
+		//	Pdef(\part2)
+		//),
+		Pfindur(8,
 			//Ppar([
 				Pdef(\yobass)
 			//])
 		),
-			Pfindur(16 * 1,
-			Pdef(\part1)
+		Pfindur(16 * 1,
+			Pdef(\part4)
 		),
 		Pfindur(16 * 2,
 			Pdef(\part2)
@@ -121,7 +143,15 @@ Pdef(\mainx,
 )
 
 (
-Pdef(\mainx, Pseq([
+Pdef(\mainx, 
+	Pdef(\part5)
+).play
+)
+
+////////////////////////////////////////////////////////////////////////: draft
+
+(
+Pdef(\mainx2, Pseq([
 		Pfindur(7,
 			Pdef(\part3)
 		),
@@ -144,6 +174,7 @@ Pdef(\mainx, Pseq([
 )
 
 
+{ SinOsc.ar(200) ! 2 * 0.1}.play;
 
 (
 	[
