@@ -161,21 +161,21 @@ Tdef(\effect2,{
 Pdef(\mainx,
 	Pseq([
 
-		// only bass
+		//// only bass
 
-		Pfset({
-			Task({
-				5.wait;
-				Tdef(\effect1).play;
-				3.wait;
-				Tdef(\effect1).stop;
-			}).play
-		}),
-		Pfindur(8,
-			//Ppar([
-				Pdef(\yobass)
-			//])
-		),
+		//Pfset({
+		//	Task({
+		//		5.wait;
+		//		Tdef(\effect1).play;
+		//		3.wait;
+		//		Tdef(\effect1).stop;
+		//	}).play
+		//}),
+		//Pfindur(8,
+		//	//Ppar([
+		//		Pdef(\yobass)
+		//	//])
+		//),
 
 		// intro
 
@@ -304,7 +304,7 @@ Pdef(\mainx,
 
 ////////////////////////////////////////////////////////////////////////: draft
 
-Pdef(\part2).play
+Pdef(\part3).play
 
 Ndef(\noise).set(\freq,10000);
 

@@ -1,10 +1,12 @@
 
 
+(
 TempoClock.default.tempo = 70/60;
 Pdef.defaultQuant = 4;
-Ndef.defaultQuant = 4;
+//Ndef.defaultQuant = 4;
 
-(
+//////////////////////////////////////////::
+
 
 SynthDef(\dr_kick1, { |out=0, amp=0.1, pan=0, fratio=1.5, freqpan=0.01, spread=0.08, timeScale=1|
 	var env0, env1, env1m, son;
@@ -173,11 +175,6 @@ SynthDef(\sfsq,{arg freq =30, amp=0.1;
 	Out.ar(0,sig*env);
 }).add;
 
-);
-
-FreqScope.new
-
-(
 
 ////////////////////////////////// kick
 

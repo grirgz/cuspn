@@ -355,7 +355,7 @@ Pdef(\snare2, Pbind(
 	],inf).coin.not,
 	\dur, 1/4,
 	\amp, 0.3
-)).stop;
+)).play;
 );
 
 (
