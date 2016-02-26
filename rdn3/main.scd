@@ -4,6 +4,7 @@
 (
 
 	////////////////////////////////// PARTS DEFINE /////////////////
+TempoClock.default.tempo = 70/60;
 
 
 	// intro
@@ -123,7 +124,7 @@ Tdef(\effect1,{loop{
 )
 s.meter;
 FreqScope.new;
-
+s.makeGui;
 (
 	////////////////////// MAIN LAUNCH !!!!!!!!!!! ///////////////////////////////
 s.volume = -15;
@@ -297,7 +298,7 @@ Pdef(\mainx,
 		Pfindur(7,
 			Pdef(\part3)
 		),
-	])
+	],inf)
 ).play
 )
 

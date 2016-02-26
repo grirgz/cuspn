@@ -1,18 +1,17 @@
 
 
-TempoClock.default.tempo = 70/60;
 Pdef.defaultQuant = 4;
 Ndef.defaultQuant = 4;
 
 (
 
-SynthDef(\dr_kick1, { |out=0, amp=0.1, pan=0, fratio=1.5, freqpan=0.01, spread=0.08, timeScale=1|
+SynthDef(\dr_kick, { |out=0, amp=0.1, pan=0, fratio=1.5, freqpan=0.01, spread=0.08, timeScale=1|
 	var env0, env1, env1m, son;
 
 	//freqpan = [-1,0,1] * freqpan;
 	freqpan = [1,0,-1] * freqpan;
 	env0 = \env0.kr(Env.new([0, 1, 0.5, 0], [0.105, 0.16, 00.2], [-4, -2, -4]));
-	env1 = \env1.kr(Env.new([110, 32, 29], [0.105, 0.29], [-4, -5]));
+	env1 = \env1.kr(Env.new([110, 32, 29], [0.0105, 0.29], [-4, -5]));
 
 	env0 =  EnvGen.ar(env0, doneAction:2, timeScale:timeScale);
 	env1 = EnvGen.ar(env1, timeScale:timeScale);
@@ -175,6 +174,8 @@ SynthDef(\sfsq,{arg freq =30, amp=0.1;
 
 );
 
+s.volume = -20;
+
 FreqScope.new
 
 (
@@ -184,20 +185,19 @@ FreqScope.new
 Pdef(\kick, Pbind(
 	\instrument, \dr_kick,
 	\env1, Pseq([
-		[ Env.new([80, 30, 22], [0.055, 0.29], [-4, -5]) ],
+		[ Env.new([80, 30, 25], [0.0155, 0.29], [-4, -5]) ],
 	],inf),
 	\timeScale, 2,
 	\fratio, 1,
 	\degree, Pseq([0],inf),
 	\dur, 4,
-	\amp, 0.5
+	\amp, 1.2
 ));
 
 Pdef(\kick2, Pbind(
 	\instrument, \dr_kick,
 	\env1, Pseq([
-		//[ Env.new([80, 32, 29], [0.055, 0.29], [-4, -5]) ],
-		[ Env.new([80, 30, 22], [0.055, 0.29], [-4, -5]) ],
+		[ Env.new([80, 30, 25], [0.0155, 0.29], [-4, -5]) ],
 	],inf),
 	\timeScale, 1,
 	\isRest, Pseq([
@@ -209,13 +209,13 @@ Pdef(\kick2, Pbind(
 	\fratio, 1,
 	\degree, Pseq([0],inf),
 	\dur, 1/4,
-	\amp, 0.5
+	\amp, 1.2
 ));
 
 Pdef(\kick2_var2, Pbind(
 	\instrument, \dr_kick,
 	\env1, Pseq([
-		[ Env.new([80, 32, 29], [0.055, 0.29], [-4, -5]) ],
+		[ Env.new([80, 32, 29], [0.0055, 0.29], [-4, -5]) ],
 	],inf),
 	\timeScale, 1,
 	\isRest, Pseq([
@@ -242,7 +242,7 @@ Pdef(\kick2_var2, Pbind(
 	\fratio, 1,
 	\degree, Pseq([0],inf),
 	\dur, 1/4,
-	\amp, 0.5
+	\amp, 1.2
 ));
 
 ////////////////////////////////// snare_hat
@@ -497,7 +497,7 @@ Pdef(\hat3, Pbind(
 			],1),
 		],4),
 	],inf).coin.not,
-	\rel, Pseq([ 
+	\rel, Pseq([
 		Pser([
 			0.051,
 		],12),
@@ -519,10 +519,10 @@ Pdef(\kick2_var3, Pbind(
 	\instrument, \dr_kick,
 	\env1, Pseq([
 		//[ Env.new([80, 32, 29], [0.055, 0.29], [-4, -5]) ],
-		[ Env.new([80, 30, 22], [0.055, 0.29], [-4, -5]) ],
-		[ Env.new([40, 30, 32], [0.055, 0.29], [-4, -5]) ],
-		[ Env.new([80, 30, 22], [0.055, 0.29], [-4, -5]) ],
-		[ Env.new([80, 30, 22], [0.055, 0.29], [-4, -5]) ],
+		[ Env.new([80, 30, 22], [0.0055, 0.29], [-4, -5]) ],
+		[ Env.new([40, 30, 32], [0.0055, 0.29], [-4, -5]) ],
+		[ Env.new([80, 30, 22], [0.0055, 0.29], [-4, -5]) ],
+		[ Env.new([80, 30, 22], [0.0055, 0.29], [-4, -5]) ],
 	],inf),
 	\timeScale, 1,
 	\isRest, Pseq([
