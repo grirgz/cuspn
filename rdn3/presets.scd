@@ -1,10 +1,8 @@
 
+s.boot
 
-<<<<<<< HEAD
-=======
 (
 TempoClock.default.tempo = 70/60;
->>>>>>> d60fa8efb1e2e60811d220a8641cd4aeb335ee4a
 Pdef.defaultQuant = 4;
 //Ndef.defaultQuant = 4;
 
@@ -36,8 +34,6 @@ SynthDef(\dr_kick, { |out=0, amp=0.1, pan=0, fratio=1.5, freqpan=0.01, spread=0.
 
 	OffsetOut.ar(out, son);
 }, metadata:(specs:(
-	env0: EnvSpec( ControlSpec(0,9,\lin)!4, ControlSpec(0,2,\lin)!4 ),
-	env1: EnvSpec( ControlSpec(0,127,\lin)!3, ControlSpec(0,2,\lin)!3 ),
 	timeScale: ControlSpec(0.001,4,\lin, 0, 1),
 ))).store;
 SynthDef(\bass, { arg out=0, amp=0.1, gate=1, pan=0, freq=200;
@@ -178,7 +174,6 @@ SynthDef(\sfsq,{arg freq =30, amp=0.1;
 	Out.ar(0,sig*env);
 }).add;
 
-<<<<<<< HEAD
 );
 
 s.volume = -20;
@@ -186,8 +181,6 @@ s.volume = -20;
 FreqScope.new
 
 (
-=======
->>>>>>> d60fa8efb1e2e60811d220a8641cd4aeb335ee4a
 
 ////////////////////////////////// kick
 

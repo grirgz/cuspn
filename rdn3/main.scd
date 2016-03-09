@@ -1,11 +1,50 @@
 
 ///////////////////////////////////////////// main
 
+~out1 = Bus.audio(s, 1);
+~out2 = Bus.audio(s, 1);
+~out3 = Bus.audio(s, 1);
+~out4 = Bus.audio(s, 1);
+
+~out56 = Bus.audio(s, 2);
+~out78 = Bus.audio(s, 2);
+
+~out3 = Bus.audio(s, 1);
+~out4 = Bus.audio(s, 1);
+Pdef(\kick).set(\out, ~out1)
+Pdef(\kick2).set(\out, ~out1)
+
+(
+	Pdef(\all, Ppar([
+			Pdef(\yobass),
+			Pdef(\kick),
+			Pdef(\kick2),
+			Pdef(\snare_hat),
+			Pdef(\violin),
+	])).play;
+	)
+
+(
+Ndef(\fx1, { 
+	var in = SoundIn.ar(2);
+	//in * LFSaw.ar(1300);
+	FreeVerb.ar(in);
+
+}).play;
+)
+
 (
 
 	////////////////////////////////// PARTS DEFINE /////////////////
 TempoClock.default.tempo = 70/60;
 
+	Pdef(\all, Ppar([
+			Pdef(\yobass),
+			Pdef(\kick),
+			Pdef(\kick2),
+			Pdef(\snare_hat),
+			Pdef(\violin),
+	]));
 
 	// intro
 	Pdef(\part1,

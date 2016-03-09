@@ -12,3 +12,5 @@ Veco.main.board_size = Point(32,64);
 Veco.main.fadeout_time = 16;
 
 TempoClock.default.beat = 0;
+
+s.meter
