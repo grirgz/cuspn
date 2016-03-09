@@ -163,7 +163,7 @@ SynthDef(\violin, { arg out=0, amp=0.1, gate=1, pan=0, freq=200, velocity=0.5, d
 	Out.ar(out, sig);
 }).add;
 
-SynthDef(\sfsq,{arg freq =30, amp=0.1;
+SynthDef(\sfsq,{arg  out = 0,freq =30, amp=0.1;
 	var env = EnvGen.ar(Env.perc(\at.kr(1.5),\rel.kr(1)),doneAction:2);
 	var sig = WhiteNoise.ar(1);
 	sig = CombL.ar(sig,0.1,1/freq,1)+sig;
@@ -171,16 +171,10 @@ SynthDef(\sfsq,{arg freq =30, amp=0.1;
 	sig = RLPF.ar(sig,1000+SinOsc.kr(35/60,0,200));
 	//sig = Compander.ar(sig,SoundIn.ar(2),0.6,0.3,0.0001,0.001,2,2);
 	sig = sig * amp;
-	Out.ar(0,sig*env);
+	Out.ar(out,sig*env);
 }).add;
 
-);
 
-s.volume = -20;
-
-FreqScope.new
-
-(
 
 ////////////////////////////////// kick
 

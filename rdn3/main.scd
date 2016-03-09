@@ -1,4 +1,11 @@
-
+MIDIdef.noteOn(\part1,{"part1".postln; Pdef(\main, Pdef(\part1)).play;},32);
+MIDIdef.noteOn(\part2,{"part2".postln; Pdef(\main, Pdef(\part2)).play;},24);
+MIDIdef.noteOn(\part3,{"part3".postln; Pdef(\main, Pdef(\part3)).play;},16);
+MIDIdef.noteOn(\part4,{"part4".postln; Pdef(\main, Pdef(\part4)).play;},8);
+MIDIdef.noteOn(\part5,{"part5".postln; Pdef(\main, Pdef(\part5)).play;},0);
+Pdef(\main, Pdef(\part1)).play;Pdef(\main, Pdef(\part1)).play;
+Pdef(\main, Pdef(\part1)).play;
+MIDIIn.connectAll
 ///////////////////////////////////////////// main
 
 ~out1 = Bus.audio(s, 1);
@@ -14,6 +21,25 @@
 Pdef(\kick).set(\out, ~out1)
 Pdef(\kick2).set(\out, ~out1)
 
+
+Pdef(\yobass).set(\out, 6);
+Pdef(\yobass_var2).set(\out, 6);
+Pdef(\kick).set(\out, 4);
+Pdef(\kick2).set(\out, 4);
+Pdef(\snare_hat).set(\out, 2);
+Pdef(\violin).set(\out, 2);
+Pdef(\violin4).set(\out, 2);
+Pdef(\violin2).set(\out, 2);
+Pdef(\kick2_var3).set(\out, 4);
+Pdef(\kick2_var2).set(\out, 4);
+
+
+
+
+
+s.meter
+s.volume = -10
+
 (
 	Pdef(\all, Ppar([
 			Pdef(\yobass),
@@ -23,16 +49,20 @@ Pdef(\kick2).set(\out, ~out1)
 			Pdef(\violin),
 	])).play;
 	)
-
+Ndef(\fx1).clear
 (
-Ndef(\fx1, { 
-	var in = SoundIn.ar(2);
-	//in * LFSaw.ar(1300);
-	FreeVerb.ar(in);
-
+Ndef(\fx1, {
+	var in = SoundIn.ar(1);
+	//in * LFSaw.ar(130&0);
+	in= FreeVerb.ar(in,1,1,1);
+in !2;
 }).play;
 )
 
+
+
+
+s.meter;
 (
 
 	////////////////////////////////// PARTS DEFINE /////////////////
@@ -196,7 +226,7 @@ Tdef(\effect2,{
 	Ndef(\noise2).stop
 });
 
-
+s.meter;
 
 Pdef(\mainx,
 	Pseq([
