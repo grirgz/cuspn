@@ -24,8 +24,6 @@ Pdef(\kick2).set(\out, ~out1)
 
 Pdef(\yobass).set(\out, 6);
 Pdef(\yobass_var2).set(\out, 6);
-Pdef(\kick).set(\out, 4);
-Pdef(\kick2).set(\out, 4);
 Pdef(\snare_hat).set(\out, 2);
 Pdef(\violin).set(\out, 2);
 Pdef(\violin4).set(\out, 2);
@@ -33,8 +31,12 @@ Pdef(\violin2).set(\out, 2);
 Pdef(\kick2_var3).set(\out, 4);
 Pdef(\kick2_var2).set(\out, 4);
 
+Pdef(\kick).set(\out, 0);
+Pdef(\kick2).set(\out, 1);
 
-
+			Pdef(\kick).play;
+			Pdef(\kick2).play;
+			Pdef(\snare_hat).play;
 
 
 s.meter
