@@ -39,7 +39,7 @@ MIDIMap(\k4, Param(Ndef(\fx1), \shift));
 	\fbdistmix,
 ].collect({ arg key, x; 
 	var tt = (1..9).collect({ arg x; (\k++x).asSymbol }) ++ (1..9).collect({ arg x; (\s++x).asSymbol });
-	MIDIMap(tt[x].debug("fdf"), Param(Ndef(\fx1), key));
+	MIDIMap(tt[x].debug("fdf"), Param(Ndef(~name+++\fx1), key));
 });
 
 MIDIMap(\a1, { Ndef(\fx1).set(\shift, 0, \shift2, 0) });
