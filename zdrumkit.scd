@@ -177,7 +177,7 @@ Pdef(\snarehat, Pbind(
 	\amp, 0.1
 ));
 
-)
+);
 
 (
 Pdef(\main, Ppar([
