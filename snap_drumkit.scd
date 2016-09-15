@@ -1,6 +1,6 @@
+// from snappizz on sccode.org
 (
-SynthDef(\kick, {
-    |out = 0, pan = 0, amp = 0.3|
+SynthDef(\snapkick, { |out = 0, pan = 0, amp = 0.3|
     var body, bodyFreq, bodyAmp;
     var pop, popFreq, popAmp;
     var click, clickAmp;
@@ -25,8 +25,7 @@ SynthDef(\kick, {
     Out.ar(out, Pan2.ar(snd, pan, amp));
 }).add;
 
-SynthDef(\snare, {
-    |out = 0, pan = 0, amp = 0.3|
+SynthDef(\snapsnare, { |out = 0, pan = 0, amp = 0.3|
     var pop, popAmp, popFreq;
     var noise, noiseAmp;
     var snd;
@@ -45,8 +44,7 @@ SynthDef(\snare, {
     Out.ar(out, Pan2.ar(snd, pan, amp));
 }).add;
 
-SynthDef(\hihat, {
-    |out = 0, pan = 0, amp = 0.3|
+SynthDef(\snaphihat, { |out = 0, pan = 0, amp = 0.3|
     var click, clickAmp;
     var noise, noiseAmp;
     var snd;
@@ -61,8 +59,7 @@ SynthDef(\hihat, {
 }).add;
 
 // adapted from a post by Neil Cosgrove (other three are original)
-SynthDef(\clap, {
-    |out = 0, amp = 0.5, pan = 0, dur = 1|
+SynthDef(\snapclap, { |out = 0, amp = 0.5, pan = 0, dur = 1|
     var env1, env2, snd, noise1, noise2;
 
     // noise 1 - 4 short repeats
@@ -93,7 +90,9 @@ SynthDef(\clap, {
 
     Out.ar(out, Pan2.ar(snd,pan,amp));
 }).add;
-)
+);
+
+// END
 
 (
 var base;
@@ -103,12 +102,12 @@ base = Pbind(\amp, 0.3);
 Ppar([
     Pbindf(
         base,
-        \instrument, Pseq([\kick, \snare, \kick, \kick, \snare], inf),
+        \instrument, Pseq([\snapkick, \snapsnare, \snapkick, \snapkick, \snapsnare], inf),
         \dur, Pseq([4, 3, 3, 2, 4], inf)
     ),
     Pbindf(
         base,
-        \instrument, Pseq([Pn(\hihat, 16), Pn(\clap, 16)], inf),
+        \instrument, Pseq([Pn(\snaphihat, 16), Pn(\snapclap, 16)], inf),
         \dur, Pseq([Rest(2), 2, Rest(2), 2], inf)
     )
 ]).play(TempoClock(2.3 * 4));
