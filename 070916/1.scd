@@ -1,14 +1,11 @@
+Pdef(\bkick, Pbind(
+	\instrument, \zkick,
 
-(
-Pdef(\plop, Pbind(
-	\instrument, \default,
-	\degree, Pseq([0],inf),
-	\dur, 1/2,
-	\legator, 0.1,
-	\amp, 0.1
-)).play;
-);
+));
 
+Pdef.defaultQuant = 4
+
+/////////////////////////////////
 (
 	Pdef(\yep1, Pbind(
 		\isRest, Pseq([
@@ -22,7 +19,7 @@ Pdef(\plop, Pbind(
 			1,0,0,1, 0,0,1,0,
 		],inf).coin.not,
 		\dur, 1/8,
-	)	<>Pdef(\bkick)).play;
+	)	<>Pdef(\kick)).play;
 	Pdef(\yep2, Pbind(
 	\isRest, Pseq([
 		0,0,0,0, 0,0,0,0,
@@ -42,7 +39,7 @@ Pdef(\plop, Pbind(
 			0,0,0,0, 0,0,0,0,
 		],inf).coin.not,
 		\dur, 1/8,
-	)	<>Pdef(\bkick)).play;
+	)	<>Pdef(\kick)).play;
 	Pdef(\yep2, Pbind(
 	\isRest, Pseq([
 		0,0,0,0, 0,0,0,0,
@@ -64,7 +61,7 @@ Pdef(\plop, Pbind(
 			0,0,0,0, 0,0,0,0,
 		],inf).coin.not,
 		\dur, 1/8,
-	)	<>Pdef(\bkick)).play;
+	)	<>Pdef(\kick)).play;
 	Pdef(\yep2, Pbind(
 	\isRest, Pseq([
 		0,0,0,0, 0,0,0,0,
@@ -96,7 +93,7 @@ Ndef(\rdn2).play;
 			0,0,0,0, 0,0,0,0,
 		],inf).coin.not,
 		\dur, 1/8,
-	)	<>Pdef(\bkick)).play;
+	)	<>Pdef(\kick)).play;
 	Pdef(\yep2, Pbind(
 	\isRest, Pseq([
 		0,0,0,0, 0,0,0,0,
@@ -136,8 +133,12 @@ Ndef(\rdn2).play;
 
 Pdef(\yep1).stop
 Pdef(\yep2).stop
-		
+
 Ndef(\rdn1).edit;
 Ndef(\rdn2).edit;
 Ndef.defaultQuant = 4;
 Pdef.defaultQuant = 4;
+
+
+RandDelayNetwork
+

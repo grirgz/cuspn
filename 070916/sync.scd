@@ -30,7 +30,7 @@ Pdef(\t1).quant =1;
 
 Pdef(\t1).stop;
 
-
+TempoClock.default.tempo = 60/60
 
 SynthDef(\t1kick,{arg out = 0,rel = 0.6,pitch=0.1 ,fader =1 ,snd,mix=0.1,rev=0.1;
 	var enva = EnvGen.ar(Env([1,1,0],[rel,0.2]),doneAction:2);

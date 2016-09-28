@@ -1,5 +1,5 @@
-
 (
+
 SynthDef(\zkick, { |out=0, amp=0.1, pan=0, fratio=1.5, freqpan=0.01, spread=0.08, timeScale=1|
 	var env0, env1, env1m, son;
 
@@ -177,14 +177,57 @@ Pdef(\snarehat, Pbind(
 	\amp, 0.1
 ));
 
-)
 
-(
-Pdef(\main, Ppar([
-	Pdef(\kick),
-	Pdef(\hat),
-	Pdef(\snare),
-	Pdef(\snarehat),
-])).play;
+SynthDef(\snare2,{arg gate = 1, amp=1, out=0;
+	var env = EnvGen.ar(Env.perc(0.001,0.2),gate,doneAction:2);
+	var freq = EnvGen.ar(Env([12000,100,12000],[0.01,0.01]));
+	var sig = WhiteNoise.ar(env);
+	sig = LPF.ar(sig,freq);
+	sig = sig.tanh;
+	Out.ar(out,sig*amp!2 );
+}).add;
+
+
+
+SynthDef(\t1kick,{arg out = 0,amp=0.1, rel = 0.6,pitch=0.1 ,fader =1 ,snd,mix=0.1,rev=0.1;
+	var enva = EnvGen.ar(Env([1,1,0],[rel,0.2]),doneAction:2);
+	var envf = EnvGen.ar(Env([20000,30,00,4],[0.02,0.1,1,1]));
+	var sig = SinOsc.ar(envf+50*pitch,0,enva);
+	//sig = PitchShift.ar(sig,0.001,pitch,0.1);
+	sig = sig.distort;
+	sig = HPF.ar(FreeVerb.ar(sig,mix,rev),1000)+sig;
+	Out.ar(out,sig*fader*enva*amp!2);
+	//Out.ar(snd,sig);
+}).add;
+
+
+
+SynthDef(\recorder, { arg out=0, amp=0.1, gate=1, pan=0, freq=200, bufnum;
+	var sig;
+	var sig1;
+	sig = InFeedback.ar(\inbus.kr(BusDef(\zero, \audio)), 2);
+	sig1 = EnvGen.ar(Env.adsr(0.01,0,1,0.01),gate,doneAction:0);
+	RecordBuf.ar(sig, bufnum, offset:0, recLevel:1, preLevel:\prelevel.kr(0), run:1, loop:0, trigger:1, doneAction:2);
+	//sig = Pan2.ar(sig, pan, amp);
+	Out.ar(out, sig);
+}).add;
+SynthDef(\player, { arg out=0, amp=0.1, gate=1, pan=0, freq=200, bufnum, speed=1, pos=0, doneAction=2, loop=0, trigger=1;
+	var sig;
+	var sig1;
+	sig = PlayBuf.ar(2, bufnum, BufRateScale.kr(bufnum) * speed, trigger, startPos: (pos*BufFrames.kr(bufnum)), doneAction:doneAction, loop: loop);
+	sig = sig * EnvGen.ar(Env.adsr(0.01,0.1,0.8,0.01),gate,doneAction:doneAction);
+	//sig = Pan2.ar(sig, pan, amp);
+	Out.ar(out, sig * \gain.kr(1));
+}).add;
+SynthDef(\playerbeat, { arg out=0, amp=0.1, gate=1, pan=0, freq=200, bufnum, speed=1, pos=0, doneAction=2, loop=0, trigger=1;
+	var sig;
+	var sig1;
+	sig = PlayBuf.ar(2, bufnum, BufRateScale.kr(bufnum) * speed, trigger, startPos: (pos*BufSampleRate.kr(bufnum)), doneAction:doneAction, loop: loop);
+	sig = sig * EnvGen.ar(Env.adsr(0.01,0.1,0.8,0.01),gate,doneAction:doneAction);
+	//sig = Pan2.ar(sig, pan, amp);
+	Out.ar(out, sig * \gain.kr(1));
+}).add;
+
+
+
 )
-s.meter;
